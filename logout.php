@@ -4,7 +4,7 @@
 
 <?php
 
-$_SESSION["uid"] = "";
+$_SESSION["userID"] = "";
 
 ?>
 

@@ -1,11 +1,9 @@
 <?php include("_header.php");?>
 <?php
+
 function put_to_server($url){
-	if ($_SESSION["userID"] === ""){
-	$user = 0;
-	}else{
-		$user = $_SESSION["userID"]; //Set to 0 for now, will eventually take in the userID of the person currently logged in.
-	}
+	
+	$user = rand(1810, 2015);
 	$mysqli = new mysqli("oniddb.cws.oregonstate.edu","mugicaj-db","A9m4Bu2nBA0JDc1P","mugicaj-db");
 	if(!($mysqli->query("insert into Links(UID,url) values($user,'$url')"))){
 		printf("Did not save to database");
@@ -13,13 +11,13 @@ function put_to_server($url){
  
 }
 
-	
-$img=$_FILES['img'];
-if(isset($_POST['submit'])){ 
- if($img['name']==''){  
-  echo "<h2>An Image Please.</h2>";
- }else{
-  $filename = $img['tmp_name'];
+function do_stuf($im){
+$img=$im;
+//if(isset($_POST['submit'])){ 
+// if($img['name']==''){  
+//  echo "<h2>An Image Please.</h2>";
+// }else{
+  $filename = $im;//$img['tmp_name'];
   $client_id="ee8ea002d5494d8";
   $handle = fopen($filename, "r");
   $data = fread($handle, filesize($filename));
@@ -43,10 +41,18 @@ if(isset($_POST['submit'])){
   }else{
    echo "<h2>There's a Problem: Imgur</h2>";
    echo $pms['data']['error'];  
-  } 
- }
+ // } 
+ //}
 }
-    
+}
+
+$dirname = "memeFaces/";
+$images = glob($dirname."*.png");
+foreach($images as $image) {
+do_stuf($image);
+}
+
 ?>
+
 
 <?php include("_footer.php");?> 

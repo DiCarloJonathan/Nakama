@@ -17,28 +17,36 @@ function currentUrl() {
 
 // returns the user's uid if logged in
 // or returns "" <-- in this case, pass $redirectIfNeeded = true to force login
-function checkAuth($redirectIfNeeded) {
+function checkAuth($redirectIfNeeded = 'cur', $go_elsewhere= 0) {
 	// is the user already logged in?
-	if (isset($_SESSION["uid"]) && $_SESSION["uid"] != "") {
+	if (isset($_SESSION["userID"]) && $_SESSION["userID"] != "") {
 		// yes, already logged in
-		return $_SESSION["uid"];
+		//echo 'sup';
+		return $_SESSION["userID"];
 	} else if ($redirectIfNeeded) {
 		// user is not logged in and needs to do so
 		// send to the login page
 
+		echo 'somber';
 		// pass the current URL so that we can come back here after login
-		$currentUrl = currentUrl();
-
+		if($redirectIfNeeded === 'cur'){
+			$currentUrl = currentUrl();
+		}else{
+			$currentUrl = $redirectIfNeeded;
+		}
 		// rawurlencode converts the string so it's safe to pass as a URL GET parameter
-		$urlOfLogin = "login.php?sendBackTo=".rawurlencode($currentUrl)."&cb=".microtime(true);
-
+		if($go_elsewhere === 1){
+			$urlGoTo = $currentUrl;
+		}else
+			$urlGoTo = "login.php?sendBackTo=".rawurlencode($currentUrl)."&cb=".microtime(true);
 		// use a JavaScript redirect; FYI, there's also an http header (Location:) that 
 		//    can be used to redirect, but that MUST be sent before any HTML, and this 
 		//    function (checkAuth) might be called after some HTML is sent
-		echo "<script>location.replace('$urlOfLogin');</script>";
+		echo "<script>location.replace('$urlGoTo');</script>";
 		return "";
 	} else {
 		// user is not logged in, but whoever called this function doesn't care
+		echo 'hi'.'$_SESSION["userID"]';
 		return "";
 	}
 }
@@ -67,5 +75,5 @@ function checkAuth($redirectIfNeeded) {
 
 <?php
 ini_set('display_errors', 'On');
-$mysqli = new mysqli("oniddb.cws.oregonstate.edu","mugicaj-db","RUjIVbuU8O3ucwM3","mugicaj-db");
+$mysqli = new mysqli("oniddb.cws.oregonstate.edu","mugicaj-db","A9m4Bu2nBA0JDc1P","mugicaj-db");
 ?>

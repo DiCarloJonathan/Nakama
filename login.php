@@ -5,7 +5,7 @@
 <?php
 
 // where is the user trying to get back to, after logging in?
-$sendBackTo = isset($_REQUEST["sendBackTo"]) ? $_REQUEST["sendBackTo"] : "index.php";
+$sendBackTo = isset($_REQUEST["sendBackTo"]) ? $_REQUEST["sendBackTo"] : "DisplayImgs.php";
 
 if (isset($_POST["username"]) && isset($_POST["password"])) {
 	// user is trying to log in; if valid login, then redirect to where the user is trying to get back to

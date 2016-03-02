@@ -38,10 +38,23 @@ if (isset($_POST["username"]) && isset($_POST["password"])&& isset($_POST["passw
 	}//////////add email into it
 
 	if ($errorMsg == "") {
+	/*$result = $mysqli->query("select cid,prof,cred,cap,title from courses")) 
+    while($obj = $result->fetch_object()){ 
+            echo "<tr>";
+            echo "<td>".htmlspecialchars($obj->cid)."</td>"; 
+            echo "<td>".htmlspecialchars($obj->title)."</td>"; 
+            echo "<td>".htmlspecialchars($obj->prof)."</td>"; 
+            echo "<td>".htmlspecialchars($obj->cred)."</td>"; 
+            echo "<td>".htmlspecialchars($obj->cap)."</td>"; 
+            echo "</tr>";
+     
+
+    $result->close();*/
 		// ok, we can just insert the record
-		$userGet = $mysqli->query("select theNum from oneNum");
+		$result = $mysqli->query("select theNum from oneNum");
+		$obj = $result->fetch_object();
+		$serID = $obj->theNum;
 		//$serID = $mysqli->query($userGet);
-		echo $serID;
 		$mysqli->query("update oneNum set theNum = theNum +1");
 		$hashedPassword = base64_encode(hash('sha256',$password . $username));
 
@@ -53,6 +66,7 @@ if (isset($_POST["username"]) && isset($_POST["password"])&& isset($_POST["passw
 		} else {
 	  		printf("Error: %s\n", $mysqli->error);
 		}
+		$result->close();
 	} else {
 		echo "<h4 class='error'>".htmlspecialchars($errorMsg)."</h4>";
 	}

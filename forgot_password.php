@@ -1,10 +1,10 @@
 <?php include("_header.php");?>
 
-<h1>You forgot your password</h1>
+<h1>You forgot your Password</h1>
 
-<form method="post" action='forgot_username_go.php' class="inform">
+<form method="post" action='forgot_pasword_go.php' class="inform">
 <ul>
-<li><label>Enter your username:</label> <input type="text" name="username">
+<li><label>Enter your email:</label> <input type="text" name="email">
 <li><input type=submit>
 </ul>
 </form>
